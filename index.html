@@ -78,9 +78,63 @@ body::before{
   position:fixed;inset:0;z-index:1000;
   background:var(--bg);
   display:flex;align-items:center;justify-content:center;flex-direction:column;
-  transition:opacity .8s var(--tr),visibility 0s linear .8s;
+  overflow:hidden;
 }
-.gate.hidden{opacity:0;visibility:hidden}
+/* entering animation: mark lifts + fades, gate splits + slides */
+.gate.leaving .gate-mark{animation:markOut 1.6s cubic-bezier(.7,0,.2,1) forwards}
+.gate.leaving .gate-sub,
+.gate.leaving .gate-btns,
+.gate.leaving .gate-meta{animation:fadeDown .5s cubic-bezier(.5,0,.5,1) forwards}
+.gate.leaving .gate-frame,
+.gate.leaving .gate-corner{animation:frameOut .9s cubic-bezier(.7,0,.2,1) .2s forwards}
+.gate.leaving::before,
+.gate.leaving::after{
+  content:'';position:absolute;left:0;right:0;height:50%;
+  background:var(--bg);
+  z-index:2;
+}
+.gate.leaving::before{top:0;animation:curtainUp 1.3s cubic-bezier(.7,0,.2,1) .6s forwards}
+.gate.leaving::after{bottom:0;animation:curtainDown 1.3s cubic-bezier(.7,0,.2,1) .6s forwards}
+.gate.hidden{display:none}
+
+@keyframes markOut{
+  0%{opacity:1;transform:translateY(0) scale(1);letter-spacing:-.03em}
+  60%{opacity:1;transform:translateY(-.5rem) scale(1.02);letter-spacing:.02em}
+  100%{opacity:0;transform:translateY(-2rem) scale(1.05);letter-spacing:.1em}
+}
+@keyframes fadeDown{to{opacity:0;transform:translateY(10px)}}
+@keyframes frameOut{to{opacity:0;transform:scale(1.06)}}
+@keyframes curtainUp{to{transform:translateY(-100%)}}
+@keyframes curtainDown{to{transform:translateY(100%)}}
+
+/* gold line reveal across the middle during transition */
+.gate-line{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:0;height:1px;background:var(--gold);z-index:3;opacity:0;
+  box-shadow:0 0 12px rgba(201,166,107,.6);
+}
+.gate.leaving .gate-line{animation:lineSweep 1.2s cubic-bezier(.7,0,.2,1) .3s forwards}
+@keyframes lineSweep{
+  0%{width:0;opacity:0}
+  25%{opacity:1}
+  70%{width:80vw;opacity:1}
+  100%{width:80vw;opacity:0}
+}
+
+/* hero content gentle rise on entry */
+.hero-inner,.hero-caption,.hero-scroll,.hero-label-top,.hero-bg{
+  opacity:0;transform:translateY(12px);
+  transition:opacity 1s cubic-bezier(.22,.61,.36,1),transform 1.2s cubic-bezier(.22,.61,.36,1);
+}
+.hero-bg{transform:translate(-50%,calc(-50% + 12px))}
+body.entered .hero-inner,
+body.entered .hero-caption,
+body.entered .hero-scroll,
+body.entered .hero-label-top{opacity:1;transform:none}
+body.entered .hero-bg{opacity:1;transform:translate(-50%,-50%)}
+body.entered .hero-caption{transition-delay:.3s}
+body.entered .hero-scroll{transition-delay:.45s}
+body.entered .hero-bg{transition-delay:.1s}
 .gate-frame{
   position:absolute;inset:1.25rem;
   border:1px solid var(--line-strong);
@@ -897,10 +951,10 @@ footer a:hover{color:var(--gold)}
   <div class="gate-corner bl"></div>
   <div class="gate-corner br"></div>
 
+  <div class="gate-line"></div>
   <div class="gate-mark serif">Astrea</div>
   <div class="gate-sub mono">Юридическое бюро · est. 2014</div>
   <div class="gate-btns">
-    <button class="gate-btn" onclick="closeGate()">Войти без звука</button>
     <button class="gate-btn primary" onclick="closeGate()">Войти</button>
   </div>
 
@@ -1467,10 +1521,16 @@ footer a:hover{color:var(--gold)}
 <script>
 function closeGate(){
   const g = document.getElementById('gate');
-  g.classList.add('hidden');
-  document.body.style.overflow = '';
+  if(g.classList.contains('leaving')) return;
+  g.classList.add('leaving');
   try{ localStorage.setItem('astrea-entered','1'); }catch(e){}
-  startHeroAnim();
+  // reveal hero slightly before curtains finish, for a smooth handoff
+  setTimeout(()=>{ document.body.classList.add('entered'); }, 900);
+  setTimeout(()=>{ startHeroAnim(); }, 1100);
+  setTimeout(()=>{
+    g.classList.add('hidden');
+    document.body.style.overflow = '';
+  }, 1900);
 }
 
 function startHeroAnim(){
@@ -1540,11 +1600,12 @@ try{
   const skip = location.hash === '#skip' || new URLSearchParams(location.search).has('skip');
   if(skip || localStorage.getItem('astrea-entered')==='1'){
     document.getElementById('gate').classList.add('hidden');
+    document.body.classList.add('entered');
     startHeroAnim();
   } else {
     document.body.style.overflow = 'hidden';
   }
-}catch(e){ startHeroAnim(); }
+}catch(e){ document.body.classList.add('entered'); startHeroAnim(); }
 
 // cursor spotlight
 const cl = document.getElementById('cursorLight');
