@@ -87,6 +87,9 @@ body::before{
 .gate.leaving .gate-meta{animation:fadeDown .5s cubic-bezier(.5,0,.5,1) forwards}
 .gate.leaving .gate-frame,
 .gate.leaving .gate-corner{animation:frameOut .9s cubic-bezier(.7,0,.2,1) .2s forwards}
+/* make the gate itself transparent once curtains cover everything
+   so sliding them away actually reveals the hero behind */
+.gate.leaving{background:transparent;transition:background 0s linear .6s}
 .gate.leaving::before,
 .gate.leaving::after{
   content:'';position:absolute;left:0;right:0;height:50%;
