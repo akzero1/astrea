@@ -283,6 +283,7 @@ body.entered .hero-bg{opacity:1;transform:translate(-50%,-50%)}
 .btn.primary:hover{background:var(--gold);color:var(--bg)}
 .btn.ghost{border-color:var(--line-strong);color:var(--ink)}
 .btn.ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn svg{width:14px;height:14px;flex-shrink:0}
 .btn-arrow{
   display:inline-block;width:14px;height:14px;
   border-top:1px solid currentColor;border-right:1px solid currentColor;
@@ -531,11 +532,11 @@ footer a:hover{color:var(--gold)}
   .logo{font-size:1.3rem}
   .nav-links a:not(.nav-cta){display:none}
   .nav-cta{padding:.5rem .9rem;font-size:8px}
-  section{padding:2.75rem 0}
-  .sec-head{margin-bottom:2.25rem}
-  .sec-label{margin-bottom:.85rem;font-size:9px}
-  .sec-label::before{width:24px}
-  .sec-title{font-size:clamp(1.6rem,8vw,2.1rem)}
+  section{padding:2.25rem 0}
+  .sec-head{margin-bottom:1.5rem}
+  .sec-label{margin-bottom:.6rem;font-size:8px}
+  .sec-label::before{width:18px}
+  .sec-title{font-size:clamp(1.35rem,7vw,1.75rem)}
 
   /* hero: drop the absolute painting-on-wall composition for a normal
      top-to-bottom flow — the centered layout leaves huge dead space
@@ -561,19 +562,20 @@ footer a:hover{color:var(--gold)}
 
   .btn{padding:.8rem 1.4rem;font-size:10px;letter-spacing:.12em;justify-content:center}
 
-  .pr-grid{grid-template-columns:1fr}
-  .pr-card{padding:1.5rem 1.25rem;min-height:auto}
-  .pr-num{margin-bottom:1.25rem}
-  .pr-card h3{font-size:1.3rem;margin-bottom:.6rem}
-  .pr-card p{font-size:.83rem}
-  .pr-tags{margin-top:1.25rem}
-  .pr-tag{font-size:9px;padding:.2rem .5rem}
+  .pr-grid{grid-template-columns:repeat(2,1fr)}
+  .pr-card{padding:.85rem .75rem;min-height:auto}
+  .pr-num{margin-bottom:.4rem;font-size:8px}
+  .pr-card h3{font-size:.95rem;line-height:1.15;margin-bottom:.3rem}
+  .pr-card p{font-size:.72rem;line-height:1.35}
+  .pr-tags{margin-top:.5rem;gap:.3rem}
+  .pr-tag{font-size:7px;padding:.12rem .35rem}
 
-  .proc-grid{grid-template-columns:1fr}
-  .proc-step{padding:1.5rem 0 1.5rem 0}
-  .proc-num{margin-bottom:1.25rem}
-  .proc-step h3{font-size:1.2rem;margin-bottom:.5rem}
-  .proc-step p{font-size:.82rem}
+  .proc-grid{grid-template-columns:repeat(2,1fr);gap:0 1rem}
+  .proc-step{padding:.85rem .75rem .85rem 0}
+  .proc-step::before{width:20px}
+  .proc-num{margin-bottom:.4rem;font-size:8px}
+  .proc-step h3{font-size:.95rem;margin-bottom:.3rem}
+  .proc-step p{font-size:.72rem;line-height:1.35}
 
   .c-eyebrow{margin-bottom:1.25rem}
   .c-title{font-size:clamp(1.9rem,10vw,2.5rem);margin-bottom:1.1rem}
@@ -588,29 +590,6 @@ footer a:hover{color:var(--gold)}
   .c-person-links{gap:.5rem}
   footer{flex-direction:column;gap:1rem;text-align:center;padding:1.5rem 1rem 1.25rem}
   .foot-links{flex-wrap:wrap;justify-content:center;gap:1rem}
-
-  /* floating quick-contact bar — phone/telegram always reachable,
-     not buried at the bottom of a long page */
-  body{padding-bottom:60px}
-  .quick-contact{
-    display:flex;position:fixed;left:0;right:0;bottom:0;z-index:200;
-    gap:.6rem;
-    background:var(--bg-2);
-    border-top:1px solid var(--line-strong);
-    padding:.55rem .9rem calc(.55rem + env(safe-area-inset-bottom));
-  }
-  .quick-contact a{
-    flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;
-    padding:.6rem 0;
-    border:1px solid var(--line-strong);
-    font-family:var(--f-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--ink);
-  }
-  .quick-contact a.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-  .quick-contact svg{width:14px;height:14px;flex-shrink:0}
-}
-@media (min-width:721px){
-  .quick-contact{display:none}
 }
 </style>
 </head>
@@ -812,15 +791,15 @@ footer a:hover{color:var(--gold)}
       <div class="c-person">
         <span class="mono name">Захар</span>
         <div class="c-person-links">
-          <a href="tel:+79526467572" class="btn ghost">+7 952 646-75-72</a>
-          <a href="https://t.me/akzerox" class="btn ghost">Telegram</a>
+          <a href="tel:+79526467572" class="btn ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>+7 952 646-75-72</a>
+          <a href="https://t.me/akzerox" target="_blank" rel="noopener" class="btn ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Telegram</a>
         </div>
       </div>
       <div class="c-person">
         <span class="mono name">Ярослав</span>
         <div class="c-person-links">
-          <a href="tel:+79526490594" class="btn ghost">+7 952 649-05-94</a>
-          <a href="https://t.me/mvsdh" class="btn ghost">Telegram</a>
+          <a href="tel:+79526490594" class="btn ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>+7 952 649-05-94</a>
+          <a href="https://t.me/mvsdh" target="_blank" rel="noopener" class="btn ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Telegram</a>
         </div>
       </div>
     </div>
@@ -837,17 +816,6 @@ footer a:hover{color:var(--gold)}
 </footer>
 
 <div class="cursor-light" id="cursorLight"></div>
-
-<div class="quick-contact">
-  <a href="tel:+79526467572" class="primary">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
-    Позвонить
-  </a>
-  <a href="https://t.me/akzerox" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-    Telegram
-  </a>
-</div>
 
 <script>
 // clicking a service card jumps to the contact form with that service preselected
