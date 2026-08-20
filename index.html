@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ASTREA — Юридическое бюро полного цикла</title>
-<meta name="description" content="ASTREA — юридическое бюро полного цикла. Корпоративное право, арбитраж, недвижимость, налоги, семейное, уголовное, IP. Москва · Санкт-Петербург.">
+<title>ASTREA — Юридическое бюро</title>
+<meta name="description" content="ASTREA — юридическая помощь: консультации, договоры, претензии, иски в суд, регистрация ИП/ООО, вопросы призыва.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230E0D0B'/%3E%3Crect x='3' y='3' width='58' height='58' fill='none' stroke='%23C9A66B' stroke-width='1'/%3E%3Ctext x='32' y='47' font-family='Georgia,serif' font-size='44' font-style='italic' fill='%23C9A66B' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,134 +74,6 @@ body::before{
 .container{max-width:1440px;margin:0 auto;padding:0 3rem}
 .row{display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem}
 
-/* ============ INTRO GATE ============ */
-.gate{
-  position:fixed;inset:0;z-index:1000;
-  background:var(--bg);
-  display:flex;align-items:center;justify-content:center;flex-direction:column;
-  overflow:hidden;
-}
-/* entering animation: mark lifts + fades, gate splits + slides */
-.gate.leaving .gate-mark{animation:markOut 1.6s cubic-bezier(.7,0,.2,1) forwards}
-.gate.leaving .gate-sub,
-.gate.leaving .gate-btns,
-.gate.leaving .gate-meta{animation:fadeDown .5s cubic-bezier(.5,0,.5,1) forwards}
-.gate.leaving .gate-frame,
-.gate.leaving .gate-corner{animation:frameOut .9s cubic-bezier(.7,0,.2,1) .2s forwards}
-/* make the gate itself transparent once curtains cover everything
-   so sliding them away actually reveals the hero behind */
-.gate.leaving{background:transparent;transition:background 0s linear .6s}
-.gate.leaving::before,
-.gate.leaving::after{
-  content:'';position:absolute;left:0;right:0;height:50%;
-  background:var(--bg);
-  z-index:2;
-}
-.gate.leaving::before{top:0;animation:curtainUp 1.3s cubic-bezier(.7,0,.2,1) .6s forwards}
-.gate.leaving::after{bottom:0;animation:curtainDown 1.3s cubic-bezier(.7,0,.2,1) .6s forwards}
-.gate.hidden{display:none}
-
-@keyframes markOut{
-  0%{opacity:1;transform:translateY(0) scale(1);letter-spacing:-.03em}
-  60%{opacity:1;transform:translateY(-.5rem) scale(1.02);letter-spacing:.02em}
-  100%{opacity:0;transform:translateY(-2rem) scale(1.05);letter-spacing:.1em}
-}
-@keyframes fadeDown{to{opacity:0;transform:translateY(10px)}}
-@keyframes frameOut{to{opacity:0;transform:scale(1.06)}}
-@keyframes curtainUp{to{transform:translateY(-100%)}}
-@keyframes curtainDown{to{transform:translateY(100%)}}
-
-/* gold line reveal across the middle during transition */
-.gate-line{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:0;height:1px;background:var(--gold);z-index:3;opacity:0;
-  box-shadow:0 0 12px rgba(201,166,107,.6);
-}
-.gate.leaving .gate-line{animation:lineSweep 1.2s cubic-bezier(.7,0,.2,1) .3s forwards}
-@keyframes lineSweep{
-  0%{width:0;opacity:0}
-  25%{opacity:1}
-  70%{width:80vw;opacity:1}
-  100%{width:80vw;opacity:0}
-}
-
-/* hero content gentle rise on entry */
-.hero-inner,.hero-caption,.hero-scroll,.hero-label-top,.hero-bg{
-  opacity:0;transform:translateY(12px);
-  transition:opacity 1s cubic-bezier(.22,.61,.36,1),transform 1.2s cubic-bezier(.22,.61,.36,1);
-}
-.hero-bg{transform:translate(-50%,calc(-50% + 12px))}
-body.entered .hero-inner,
-body.entered .hero-caption,
-body.entered .hero-scroll,
-body.entered .hero-label-top{opacity:1;transform:none}
-body.entered .hero-bg{opacity:1;transform:translate(-50%,-50%)}
-body.entered .hero-caption{transition-delay:.3s}
-body.entered .hero-scroll{transition-delay:.45s}
-body.entered .hero-bg{transition-delay:.1s}
-.gate-frame{
-  position:absolute;inset:1.25rem;
-  border:1px solid var(--line-strong);
-  pointer-events:none;
-}
-.gate-corner{
-  position:absolute;width:40px;height:40px;
-  border:1px solid var(--gold);
-}
-.gate-corner.tl{top:1.25rem;left:1.25rem;border-right:none;border-bottom:none}
-.gate-corner.tr{top:1.25rem;right:1.25rem;border-left:none;border-bottom:none}
-.gate-corner.bl{bottom:1.25rem;left:1.25rem;border-right:none;border-top:none}
-.gate-corner.br{bottom:1.25rem;right:1.25rem;border-left:none;border-top:none}
-
-.gate-mark{
-  font-family:var(--f-serif);
-  font-size:14vw;
-  line-height:1;
-  letter-spacing:-.03em;
-  color:var(--ink);
-  position:relative;
-  user-select:none;
-}
-.gate-mark::after{
-  content:'®';
-  font-size:.15em;
-  vertical-align:super;
-  margin-left:.1em;
-  color:var(--gold);
-  font-family:var(--f-mono);
-}
-.gate-sub{
-  margin-top:2rem;
-  color:var(--ink-muted);
-  letter-spacing:.1em;
-}
-.gate-btns{
-  margin-top:3rem;
-  display:flex;gap:1rem;
-}
-.gate-btn{
-  padding:1rem 2rem;
-  border:1px solid var(--line-strong);
-  font-family:var(--f-mono);
-  font-size:11px;
-  letter-spacing:.15em;
-  text-transform:uppercase;
-  color:var(--ink);
-  transition:all .4s var(--tr);
-  cursor:pointer;
-  background:transparent;
-}
-.gate-btn:hover{border-color:var(--gold);color:var(--gold)}
-.gate-btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.gate-btn.primary:hover{background:var(--gold);border-color:var(--gold);color:var(--bg)}
-
-.gate-meta{
-  position:absolute;bottom:3rem;left:3rem;right:3rem;
-  display:flex;justify-content:space-between;
-  color:var(--ink-muted);
-  font-size:10px;
-}
-
 /* ============ NAV ============ */
 .nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
@@ -241,18 +113,16 @@ body.entered .hero-bg{transition-delay:.1s}
 }
 .nav-cta:hover{border-color:var(--gold);color:var(--gold)}
 
-/* ============ HERO (framed painting scene — pieterkoopt.nl inspired) ============ */
+/* ============ HERO (framed painting scene) ============ */
 .hero{
   min-height:100vh;
   padding:0;
   position:relative;
   display:flex;flex-direction:column;
   overflow:hidden;
-  /* burgundy wall */
   background:
     radial-gradient(ellipse at 50% 35%, #4a2a22 0%, #2a1612 55%, #140a08 100%);
 }
-/* wall texture — subtle noise + vignette */
 .hero::before{
   content:'';position:absolute;inset:0;z-index:0;
   background:
@@ -260,22 +130,19 @@ body.entered .hero-bg{transition-delay:.1s}
     radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,.65) 100%);
   pointer-events:none;
 }
-/* floor reflection suggestion */
 .hero::after{
   content:'';position:absolute;left:0;right:0;bottom:0;height:28%;z-index:0;
   background:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.5) 70%,rgba(0,0,0,.85) 100%);
   pointer-events:none;
 }
 .hero-bg{
-  /* framed painting in center of wall */
   position:absolute;
   top:50%;left:50%;
-  transform:translate(-50%,-50%);
+  transform:translate(-50%,calc(-50% + 12px));
   z-index:1;
   width:min(52vw, 780px);
   aspect-ratio:16/10;
   max-height:72vh;
-  /* ornate gilded frame */
   padding:22px;
   background:
     linear-gradient(135deg,#b8894a 0%,#d4a860 20%,#8c6028 45%,#c9a66b 60%,#6f4a1f 85%,#a8823e 100%);
@@ -286,9 +153,10 @@ body.entered .hero-bg{transition-delay:.1s}
     0 0 0 2px rgba(201,166,107,.25),
     inset 0 0 0 1px rgba(255,220,170,.2),
     inset 0 0 30px rgba(0,0,0,.4);
+  opacity:0;
+  transition:opacity 1s cubic-bezier(.22,.61,.36,1),transform 1.2s cubic-bezier(.22,.61,.36,1);
 }
 .hero-bg::before{
-  /* inner gold bevel at inside edge of frame */
   content:'';position:absolute;inset:18px;
   border:2px solid rgba(40,25,8,.75);
   box-shadow:inset 0 0 0 1px rgba(255,220,170,.18);
@@ -303,7 +171,6 @@ body.entered .hero-bg{transition-delay:.1s}
   filter:contrast(1.02) saturate(1.02);
   will-change:transform;
 }
-/* fallback when no image: dark canvas inside frame with § sigil */
 .hero-bg-fallback{
   position:absolute;inset:22px;
   background:linear-gradient(135deg,#1a1a1e 0%,#0a0a0c 100%);
@@ -315,22 +182,23 @@ body.entered .hero-bg{transition-delay:.1s}
   font-family:var(--f-serif);font-size:10rem;color:var(--gold);opacity:.3;
   font-style:italic;
 }
-/* when real image loads, hide fallback */
 .hero-bg:has(img:not([style*="display: none"])) .hero-bg-fallback{display:none}
 
-/* top-left label */
 .hero-label-top{
   position:absolute;top:7rem;left:3rem;z-index:3;
   color:var(--gold);
   display:flex;align-items:center;gap:1rem;
+  opacity:0;transform:translateY(12px);
+  transition:opacity 1s cubic-bezier(.22,.61,.36,1),transform 1.2s cubic-bezier(.22,.61,.36,1);
 }
 .hero-label-top::before{content:'';width:40px;height:1px;background:var(--gold)}
 
-/* bottom-left text block — small, cinematic */
 .hero-inner{
   position:absolute;z-index:3;
   left:3rem;bottom:5rem;
   max-width:440px;
+  opacity:0;transform:translateY(12px);
+  transition:opacity 1s cubic-bezier(.22,.61,.36,1),transform 1.2s cubic-bezier(.22,.61,.36,1);
 }
 .hero-title{
   font-family:var(--f-serif);
@@ -359,7 +227,6 @@ body.entered .hero-bg{transition-delay:.1s}
 }
 .hero-actions{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
 
-/* painting caption — bottom center */
 .hero-caption{
   position:absolute;z-index:3;
   left:50%;bottom:3rem;transform:translateX(-50%);
@@ -368,6 +235,8 @@ body.entered .hero-bg{transition-delay:.1s}
   letter-spacing:.25em;
   font-size:10px;
   white-space:nowrap;
+  opacity:0;transform:translate(-50%,12px);
+  transition:opacity 1s cubic-bezier(.22,.61,.36,1) .3s,transform 1.2s cubic-bezier(.22,.61,.36,1) .3s;
 }
 .hero-caption strong{color:var(--gold);font-weight:400;letter-spacing:.3em}
 .hero-caption::before{
@@ -376,7 +245,6 @@ body.entered .hero-bg{transition-delay:.1s}
   margin:0 auto 1rem;
 }
 
-/* bottom-right scroll cue */
 .hero-scroll{
   position:absolute;z-index:3;
   right:3rem;bottom:3rem;
@@ -385,12 +253,21 @@ body.entered .hero-bg{transition-delay:.1s}
   display:flex;align-items:center;gap:.75rem;
   writing-mode:vertical-rl;
   transform:rotate(180deg);
+  opacity:0;
+  transition:opacity 1s cubic-bezier(.22,.61,.36,1) .45s;
 }
 .hero-scroll::after{
   content:'';display:block;width:1px;height:60px;
   background:linear-gradient(180deg,var(--gold),transparent);
   margin-top:1rem;
 }
+body.entered .hero-inner,
+body.entered .hero-caption,
+body.entered .hero-scroll,
+body.entered .hero-label-top{opacity:1;transform:translateY(0)}
+body.entered .hero-caption{transform:translateX(-50%)}
+body.entered .hero-bg{opacity:1;transform:translate(-50%,-50%)}
+
 .btn{
   padding:1.1rem 2.25rem;
   font-family:var(--f-mono);
@@ -412,16 +289,6 @@ body.entered .hero-bg{transition-delay:.1s}
   transform:rotate(45deg);margin-left:.25rem;
 }
 
-.hero-bottom{
-  margin-top:5rem;
-  display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;
-  padding-top:2rem;
-  border-top:1px solid var(--line);
-}
-.hb-item .mono{color:var(--ink-muted);margin-bottom:.5rem;display:block}
-.hb-item .val{font-family:var(--f-serif);font-size:2rem;color:var(--gold);display:block;line-height:1.1;margin-bottom:.25rem}
-.hb-item p{color:var(--ink-soft);font-size:.85rem}
-
 /* ============ SECTION BASE ============ */
 section{padding:8rem 0;position:relative}
 .sec-head{margin-bottom:5rem}
@@ -440,67 +307,7 @@ section{padding:8rem 0;position:relative}
 }
 .sec-title em{font-style:italic;color:var(--gold)}
 
-/* ============ PHILOSOPHY ============ */
-.philosophy{
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  background:var(--bg-2);
-}
-.phi-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;
-}
-.phi-visual{
-  position:relative;aspect-ratio:4/5;
-  background:var(--marble);
-  border:1px solid var(--line-strong);
-  overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-}
-.phi-visual::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at center,transparent 30%,rgba(14,13,11,.8) 100%);
-  z-index:2;
-}
-.phi-visual img{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  filter:grayscale(.2) contrast(1.05) sepia(.1);
-  opacity:.9;
-}
-.phi-visual-fallback{
-  position:absolute;inset:0;z-index:1;
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--f-serif);
-  font-size:15rem;color:var(--gold);
-  opacity:.25;
-}
-.phi-caption{
-  position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;z-index:3;
-  font-family:var(--f-mono);font-size:10px;color:var(--ink-muted);
-  display:flex;justify-content:space-between;
-}
-.phi-text h2{
-  font-family:var(--f-serif);
-  font-size:clamp(2rem,4vw,3.5rem);
-  line-height:1.1;letter-spacing:-.02em;
-  margin-bottom:2rem;
-}
-.phi-text h2 em{font-style:italic;color:var(--gold)}
-.phi-text p{
-  color:var(--ink-soft);
-  font-size:1.05rem;
-  line-height:1.75;
-  margin-bottom:1.5rem;
-}
-.phi-sign{
-  margin-top:3rem;
-  padding-top:2rem;
-  border-top:1px solid var(--line);
-  display:flex;justify-content:space-between;align-items:flex-end;
-}
-.phi-sign .who{font-family:var(--f-serif);font-style:italic;font-size:1.3rem}
-.phi-sign .role{font-family:var(--f-mono);font-size:10px;color:var(--ink-muted);letter-spacing:.1em;text-transform:uppercase}
-
-/* ============ PRACTICES ============ */
+/* ============ SERVICES ============ */
 .practices{background:var(--bg)}
 .pr-grid{
   display:grid;grid-template-columns:repeat(3,1fr);gap:0;
@@ -555,176 +362,6 @@ section{padding:8rem 0;position:relative}
   color:var(--ink-muted);
   text-transform:uppercase;letter-spacing:.1em;
 }
-
-/* ============ CASES (editorial gallery) ============ */
-.cases{
-  background:var(--bg-2);
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-}
-.case-list{display:flex;flex-direction:column;gap:6rem}
-.case-item{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:5rem;
-  align-items:center;
-  position:relative;
-}
-.case-item.reverse{direction:rtl}
-.case-item.reverse > *{direction:ltr}
-
-.case-visual{
-  position:relative;
-  aspect-ratio:4/5;
-  overflow:hidden;
-  background:var(--marble);
-  border:1px solid var(--line);
-}
-.case-visual::before{
-  content:'';position:absolute;inset:0;z-index:2;
-  background:linear-gradient(180deg,transparent 60%,rgba(14,13,11,.6) 100%);
-  pointer-events:none;
-}
-.case-visual::after{
-  content:'';position:absolute;inset:0;z-index:2;
-  background:radial-gradient(ellipse at center,transparent 40%,rgba(14,13,11,.35) 100%);
-  pointer-events:none;
-}
-.case-visual img{
-  width:100%;height:100%;object-fit:cover;
-  filter:grayscale(.35) contrast(1.08) sepia(.1);
-  transition:transform 1.2s var(--tr),filter .6s var(--tr);
-  will-change:transform;
-}
-.case-visual .cv-fallback{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--f-serif);
-  font-size:12rem;color:var(--gold);opacity:.2;
-}
-.case-item:hover .case-visual img{transform:scale(1.05);filter:grayscale(.1) contrast(1.15) sepia(.05)}
-
-.case-caption{
-  position:absolute;bottom:1.25rem;left:1.25rem;right:1.25rem;z-index:3;
-  display:flex;justify-content:space-between;
-  font-family:var(--f-mono);font-size:10px;
-  color:var(--ink-muted);letter-spacing:.15em;text-transform:uppercase;
-}
-
-.case-body{padding:1rem 0}
-.case-meta{
-  display:flex;align-items:center;gap:1rem;
-  font-family:var(--f-mono);font-size:10px;
-  color:var(--ink-muted);letter-spacing:.15em;text-transform:uppercase;
-  margin-bottom:2rem;
-}
-.case-meta span+span::before{content:'·';margin-right:1rem;color:var(--gold)}
-.case-num{
-  font-family:var(--f-serif);
-  font-size:clamp(4rem,8vw,7rem);
-  line-height:.85;
-  color:var(--gold);
-  font-style:italic;
-  margin-bottom:1.5rem;
-  display:block;
-}
-.case-title{
-  font-family:var(--f-serif);
-  font-size:clamp(2rem,3.5vw,3rem);
-  line-height:1.05;
-  letter-spacing:-.02em;
-  margin-bottom:2rem;
-  transition:color .4s var(--tr);
-}
-.case-item:hover .case-title{color:var(--gold)}
-.case-desc{
-  color:var(--ink-soft);
-  font-size:1rem;
-  line-height:1.7;
-  margin-bottom:2rem;
-  max-width:42ch;
-}
-.case-result{
-  padding-top:1.5rem;
-  border-top:1px solid var(--line);
-  display:flex;justify-content:space-between;align-items:baseline;
-  max-width:42ch;
-}
-.case-result .label{font-family:var(--f-mono);font-size:10px;color:var(--ink-muted);letter-spacing:.15em;text-transform:uppercase}
-.case-result .value{font-family:var(--f-serif);font-size:1.4rem;color:var(--gold);font-style:italic}
-
-/* ============ TEAM (horizontal scroller) ============ */
-.team-wrap{position:relative}
-.team-scroll{
-  display:flex;gap:2rem;
-  overflow-x:auto;overflow-y:hidden;
-  scroll-snap-type:x mandatory;
-  scroll-behavior:smooth;
-  scrollbar-width:none;
-  padding:.5rem 4rem 2rem .5rem;
-  -webkit-overflow-scrolling:touch;
-}
-.team-scroll::-webkit-scrollbar{display:none}
-.tm{
-  position:relative;flex:0 0 auto;
-  width:clamp(240px, 24vw, 340px);
-  scroll-snap-align:start;
-}
-.tm-img{
-  aspect-ratio:3/4;
-  background:var(--marble);
-  border:1px solid var(--line);
-  overflow:hidden;
-  position:relative;
-  margin-bottom:1.5rem;
-}
-.tm-img img{
-  width:100%;height:100%;object-fit:cover;
-  filter:grayscale(.5) contrast(1.05);
-  transition:all .8s var(--tr);
-  position:relative;z-index:1;
-}
-.tm:hover .tm-img img{filter:grayscale(0) contrast(1.1);transform:scale(1.03)}
-.tm-initials{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--f-serif);font-size:6rem;color:var(--ink-muted);
-  z-index:0;
-}
-.tm-info{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
-.tm-info > div{min-width:0;flex:1 1 auto}
-.tm-info h3{font-family:var(--f-serif);font-size:1.4rem;line-height:1.15;letter-spacing:-.01em;word-break:break-word}
-.tm-info .role{font-family:var(--f-mono);font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.12em;margin-top:.5rem;display:block}
-.tm-exp{font-family:var(--f-mono);font-size:10px;color:var(--ink-muted);text-align:right;white-space:nowrap;flex-shrink:0}
-
-/* fade edges */
-.team-wrap::before,
-.team-wrap::after{
-  content:'';position:absolute;top:0;bottom:2rem;width:80px;z-index:2;pointer-events:none;
-}
-.team-wrap::before{left:0;background:linear-gradient(90deg,var(--bg) 0%,transparent 100%)}
-.team-wrap::after{right:0;background:linear-gradient(270deg,var(--bg) 0%,transparent 100%)}
-
-/* nav arrows */
-.team-nav{
-  display:flex;justify-content:flex-end;gap:.75rem;margin-top:.5rem;
-}
-.team-arrow{
-  width:52px;height:52px;
-  border:1px solid var(--line-strong);background:transparent;
-  color:var(--ink);cursor:pointer;
-  display:grid;place-items:center;
-  transition:all .4s var(--tr);
-  font-family:var(--f-serif);font-size:1.5rem;
-  border-radius:0;
-}
-.team-arrow:hover{border-color:var(--gold);color:var(--gold)}
-.team-arrow:disabled{opacity:.3;cursor:not-allowed}
-.team-counter{
-  margin-right:auto;align-self:center;
-  font-family:var(--f-mono);font-size:10px;letter-spacing:.25em;color:var(--ink-muted);
-}
-.team-counter strong{color:var(--gold);font-weight:400}
 
 /* ============ PROCESS ============ */
 .process{
@@ -781,8 +418,8 @@ section{padding:8rem 0;position:relative}
   margin-bottom:5rem;
 }
 .c-info{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:3rem;
-  max-width:900px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:3rem;
+  max-width:620px;margin:0 auto;
   padding-top:3rem;
   border-top:1px solid var(--line);
 }
@@ -887,36 +524,15 @@ footer a:hover{color:var(--gold)}
   content:'';width:80px;height:1px;background:var(--line-strong);
 }
 
-/* ============ CURSOR TICKER ============ */
-.ticker{
-  overflow:hidden;white-space:nowrap;
-  padding:1.5rem 0;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  font-family:var(--f-serif);
-  font-size:3rem;line-height:1;
-  font-style:italic;
-  color:var(--ink);
-  background:var(--bg);
-}
-.ticker-track{display:inline-flex;animation:ticker 30s linear infinite}
-.ticker-item{padding:0 3rem;display:inline-flex;align-items:center;gap:3rem}
-.ticker-item::after{content:'§';color:var(--gold);font-style:normal}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
 /* ============ RESPONSIVE ============ */
 @media (max-width:1024px){
   .container{padding:0 2rem}
   .pr-grid{grid-template-columns:repeat(2,1fr)}
   .proc-grid{grid-template-columns:repeat(2,1fr)}
-  .case-item{grid-template-columns:1fr;gap:2rem}
-  .case-item.reverse{direction:ltr}
-  .case-visual{aspect-ratio:3/2;max-width:100%}
   .hero-label-top{top:5.5rem;left:2rem}
   .hero-inner{left:2rem;right:2rem;bottom:7rem;max-width:none}
   .hero-caption{bottom:1.5rem;font-size:9px;letter-spacing:.2em}
   .hero-scroll{display:none}
-  .phi-grid{grid-template-columns:1fr;gap:3rem}
 }
 @media (max-width:720px){
   .container{padding:0 1.25rem}
@@ -930,16 +546,10 @@ footer a:hover{color:var(--gold)}
   .hero-caption{bottom:1.25rem;white-space:normal;max-width:90vw;font-size:8px}
   .pr-grid{grid-template-columns:1fr}
   .proc-grid{grid-template-columns:1fr}
-  .tm{width:80vw}
   .pr-card{padding:2rem 1.5rem;min-height:auto}
-  .case-list{gap:4rem}
-  .case-num{font-size:3.5rem}
-  .case-title{font-size:1.75rem}
   .c-info{grid-template-columns:1fr;gap:2rem}
   .c-channels{flex-direction:column;align-items:stretch}
   .btn{justify-content:center}
-  .ticker{font-size:1.8rem;padding:1rem 0}
-  .gate-meta{left:1.25rem;right:1.25rem;bottom:1.5rem;font-size:9px}
   footer{flex-direction:column;gap:1rem;text-align:center;padding:2rem 1rem}
   .foot-links{flex-wrap:wrap;justify-content:center;gap:1rem}
 }
@@ -947,36 +557,12 @@ footer a:hover{color:var(--gold)}
 </head>
 <body>
 
-<!-- ============ INTRO GATE ============ -->
-<div class="gate" id="gate">
-  <div class="gate-frame"></div>
-  <div class="gate-corner tl"></div>
-  <div class="gate-corner tr"></div>
-  <div class="gate-corner bl"></div>
-  <div class="gate-corner br"></div>
-
-  <div class="gate-line"></div>
-  <div class="gate-mark serif">Astrea</div>
-  <div class="gate-sub mono">Юридическое бюро · est. 2014</div>
-  <div class="gate-btns">
-    <button class="gate-btn primary" onclick="closeGate()">Войти</button>
-  </div>
-
-  <div class="gate-meta">
-    <span class="mono">RU · EN</span>
-    <span class="mono">Москва · Санкт-Петербург</span>
-    <span class="mono">MMXIV — MMXXVI</span>
-  </div>
-</div>
-
 <!-- ============ NAV ============ -->
 <nav class="nav">
   <a href="#" class="logo">Astrea<sup>®</sup></a>
   <div class="nav-links">
-    <a href="#philosophy">Философия</a>
-    <a href="#practices">Практики</a>
-    <a href="#cases">Дела</a>
-    <a href="#team">Команда</a>
+    <a href="#practices">Услуги</a>
+    <a href="#process">Как мы работаем</a>
     <a href="#contact" class="nav-cta">Связаться</a>
   </div>
 </nav>
@@ -999,10 +585,10 @@ footer a:hover{color:var(--gold)}
       <span class="word"><em>Кроме</em></span>
       <span class="word"><em>справедливости</em>.</span>
     </h1>
-    <p class="hero-sub">Бюро полного цикла с 2014 года. Корпоративное право, арбитраж, налоги, недвижимость, семейное и уголовное — 400+ закрытых дел.</p>
+    <p class="hero-sub">Юридическая помощь частным лицам: от разовой консультации и документов до претензий и представительства в суде.</p>
     <div class="hero-actions">
       <button class="btn primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Консультация<span class="btn-arrow"></span></button>
-      <a href="#practices" class="btn ghost">Практики</a>
+      <a href="#practices" class="btn ghost">Услуги</a>
     </div>
   </div>
 
@@ -1015,392 +601,72 @@ footer a:hover{color:var(--gold)}
   </div>
 </section>
 
-<!-- ============ TICKER ============ -->
-<div class="ticker">
-  <div class="ticker-track">
-    <div class="ticker-item">Corpus Iuris<span>Audi alteram partem</span><span>Pacta sunt servanda</span><span>Dura lex, sed lex</span><span>Ars boni et aequi</span><span>Suum cuique</span></div>
-    <div class="ticker-item">Corpus Iuris<span>Audi alteram partem</span><span>Pacta sunt servanda</span><span>Dura lex, sed lex</span><span>Ars boni et aequi</span><span>Suum cuique</span></div>
-  </div>
-</div>
-
-<!-- ============ PHILOSOPHY ============ -->
-<section class="philosophy" id="philosophy">
-  <div class="container">
-    <div class="phi-grid">
-      <div class="phi-visual">
-        <div class="phi-visual-fallback">§</div>
-        <img src="https://images.unsplash.com/photo-1593115057322-e94b77572f20?w=1000&q=80" alt="Статуя Фемиды"
-             onerror="this.style.display='none'">
-        <div class="phi-caption">
-          <span>Фигура I · Iustitia</span>
-          <span>Иллюстрация</span>
-        </div>
-      </div>
-
-      <div class="phi-text">
-        <span class="mono sec-label">02 · Manifestum</span>
-        <h2>Там, где <em>право</em> встречается с <em>благоразумием</em>.</h2>
-        <p>Мы не торгуем страхом и не обещаем невозможного. В нашей работе есть три постулата — <em>знание нормы, уважение к клиенту и точность расчёта</em>.</p>
-        <p>Каждое дело — это композиция. У неё есть темп, пропорция и внутренняя логика. Наша задача — сохранить эту логику в любом суде, на любом столе переговоров, в любой бумаге.</p>
-        <p>Мы работаем с компаниями, семьями и частными лицами, которые ценят точность, конфиденциальность и долгую игру.</p>
-
-        <div class="phi-sign">
-          <div>
-            <div class="who serif">А. М. Верховская</div>
-            <div class="role mono">Партнёр-основатель</div>
-          </div>
-          <div class="mono" style="color:var(--ink-muted)">Est. 2014</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PRACTICES ============ -->
+<!-- ============ SERVICES ============ -->
 <section class="practices" id="practices">
   <div class="container">
     <div class="sec-head">
-      <span class="mono sec-label">03 · Practica</span>
-      <h2 class="sec-title">Девять <em>практик</em>.<br>Одна команда.</h2>
+      <span class="mono sec-label">02 · Practica</span>
+      <h2 class="sec-title">Семь <em>услуг</em>.<br>Понятно и по делу.</h2>
     </div>
 
     <div class="pr-grid">
       <article class="pr-card">
-        <span class="pr-num">I / 09</span>
-        <h3>Корпоративное право</h3>
-        <p>M&amp;A, реструктуризация, корпоративные споры, ЕГРЮЛ, акционерные соглашения, due diligence.</p>
-        <div class="pr-tags"><span class="pr-tag">M&amp;A</span><span class="pr-tag">Холдинги</span><span class="pr-tag">Споры</span></div>
+        <span class="pr-num">I / 07</span>
+        <h3>Юридическая консультация</h3>
+        <p>Разбираем ситуацию, оцениваем риски и перспективы, объясняем варианты действий простым языком — очно или онлайн.</p>
+        <div class="pr-tags"><span class="pr-tag">Очно</span><span class="pr-tag">Онлайн</span></div>
       </article>
 
       <article class="pr-card">
-        <span class="pr-num">II / 09</span>
-        <h3>Арбитражный процесс</h3>
-        <p>Представительство в арбитражных судах всех инстанций. Взыскание задолженности, оспаривание сделок, банкротства кредиторов.</p>
-        <div class="pr-tags"><span class="pr-tag">АПК</span><span class="pr-tag">Взыскание</span><span class="pr-tag">Исполнение</span></div>
+        <span class="pr-num">II / 07</span>
+        <h3>Составление договоров</h3>
+        <p>Договоры купли-продажи, аренды, оказания услуг, подряда — с учётом ваших интересов и проверкой рисков второй стороны.</p>
+        <div class="pr-tags"><span class="pr-tag">Любой тип</span><span class="pr-tag">Проверка</span></div>
       </article>
 
       <article class="pr-card">
-        <span class="pr-num">III / 09</span>
-        <h3>Налоговое право</h3>
-        <p>Налоговые споры, сопровождение проверок, досудебное обжалование, налоговое планирование, структурирование сделок.</p>
-        <div class="pr-tags"><span class="pr-tag">ВНП/КНП</span><span class="pr-tag">ФНС</span><span class="pr-tag">Tax</span></div>
+        <span class="pr-num">III / 07</span>
+        <h3>Составление претензий</h3>
+        <p>Письменные требования контрагентам, работодателям, продавцам, страховым — с опорой на нормы закона.</p>
+        <div class="pr-tags"><span class="pr-tag">Возврат средств</span><span class="pr-tag">Компенсации</span></div>
       </article>
 
       <article class="pr-card">
-        <span class="pr-num">IV / 09</span>
-        <h3>Недвижимость</h3>
-        <p>Сделки с коммерческой и жилой недвижимостью, споры о границах, судьбе ОКС, ДДУ, кадастровые и земельные вопросы.</p>
-        <div class="pr-tags"><span class="pr-tag">Купля-продажа</span><span class="pr-tag">Аренда</span><span class="pr-tag">ДДУ</span></div>
+        <span class="pr-num">IV / 07</span>
+        <h3>Досудебная претензия</h3>
+        <p>Обязательный шаг перед судом по многим категориям споров. Готовим так, чтобы либо снять вопрос без суда, либо усилить будущий иск.</p>
+        <div class="pr-tags"><span class="pr-tag">Обязательный порядок</span></div>
       </article>
 
       <article class="pr-card">
-        <span class="pr-num">V / 09</span>
-        <h3>Семейное право</h3>
-        <p>Разводы, раздел имущества, брачные договоры, алименты, определение места жительства детей, международные дела.</p>
-        <div class="pr-tags"><span class="pr-tag">Раздел</span><span class="pr-tag">Дети</span><span class="pr-tag">Брачный</span></div>
+        <span class="pr-num">V / 07</span>
+        <h3>Иск в суд</h3>
+        <p>Подготовка искового заявления, расчёт цены иска, сбор доказательств, при необходимости — представительство в суде.</p>
+        <div class="pr-tags"><span class="pr-tag">Любая инстанция</span><span class="pr-tag">Сопровождение</span></div>
       </article>
 
       <article class="pr-card">
-        <span class="pr-num">VI / 09</span>
-        <h3>Уголовная защита</h3>
-        <p>Защита по экономическим составам (ст. 159, 160, 171, 199, 201 УК). Работа на стадии доследственной проверки, следствия и суда.</p>
-        <div class="pr-tags"><span class="pr-tag">Эконом. ст.</span><span class="pr-tag">Суд</span><span class="pr-tag">Следствие</span></div>
+        <span class="pr-num">VI / 07</span>
+        <h3>Регистрация ИП/ООО</h3>
+        <p>Полное сопровождение: документы, подача в налоговую, выбор системы налогообложения, открытие расчётного счёта.</p>
+        <div class="pr-tags"><span class="pr-tag">Под ключ</span></div>
       </article>
 
       <article class="pr-card">
-        <span class="pr-num">VII / 09</span>
-        <h3>Банкротство</h3>
-        <p>Сопровождение процедур банкротства компаний и граждан. Защита кредиторов и должников, субсидиарная ответственность.</p>
-        <div class="pr-tags"><span class="pr-tag">КДЛ</span><span class="pr-tag">Физлица</span><span class="pr-tag">Субсидиарка</span></div>
+        <span class="pr-num">VII / 07</span>
+        <h3>Консультирование по призыву</h3>
+        <p>Права призывника, основания для отсрочки и освобождения, обжалование решений военкомата.</p>
+        <div class="pr-tags"><span class="pr-tag">Отсрочки</span><span class="pr-tag">Обжалование</span></div>
       </article>
-
-      <article class="pr-card">
-        <span class="pr-num">VIII / 09</span>
-        <h3>Интеллектуальная собственность</h3>
-        <p>Регистрация товарных знаков, защита авторских прав, патенты, лицензионные договоры, споры в Суде по интеллектуальным правам.</p>
-        <div class="pr-tags"><span class="pr-tag">ТЗ</span><span class="pr-tag">©</span><span class="pr-tag">СИП</span></div>
-      </article>
-
-      <article class="pr-card">
-        <span class="pr-num">IX / 09</span>
-        <h3>Трудовое и наследство</h3>
-        <p>Трудовые споры, увольнения, компенсации; наследственные дела, оспаривание завещаний, раздел наследственной массы.</p>
-        <div class="pr-tags"><span class="pr-tag">ТК РФ</span><span class="pr-tag">Наследство</span><span class="pr-tag">Завещания</span></div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CASES ============ -->
-<section class="cases" id="cases">
-  <div class="container">
-    <div class="sec-head">
-      <span class="mono sec-label">04 · Acta</span>
-      <h2 class="sec-title">Избранные <em>дела</em>.</h2>
-    </div>
-
-    <div class="case-list">
-
-      <article class="case-item">
-        <div class="case-visual">
-          <div class="cv-fallback">I</div>
-          <img src="images/case-01.jpg" alt="" onerror="this.style.display='none'">
-          <div class="case-caption"><span>Plate I</span><span>Subsidiaria</span></div>
-        </div>
-        <div class="case-body">
-          <div class="case-meta"><span>Банкротство</span><span>Арбитражный суд</span><span>2025</span></div>
-          <span class="case-num">I.</span>
-          <h3 class="case-title">Защита контролирующего лица <em style="font-style:italic;color:var(--gold)">по субсидиарной</em> ответственности.</h3>
-          <p class="case-desc">Снята субсидиарная ответственность с бывшего генерального директора по требованию конкурсного управляющего. Доказано отсутствие причинно-следственной связи между действиями клиента и банкротством компании.</p>
-          <div class="case-result">
-            <span class="label">Спасённая сумма</span>
-            <span class="value">187 000 000 ₽</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="case-item reverse">
-        <div class="case-visual">
-          <div class="cv-fallback">II</div>
-          <img src="images/case-02.jpg" alt="" onerror="this.style.display='none'">
-          <div class="case-caption"><span>Plate II</span><span>Tributum</span></div>
-        </div>
-        <div class="case-body">
-          <div class="case-meta"><span>Налоги</span><span>9-й ААС</span><span>2025</span></div>
-          <span class="case-num">II.</span>
-          <h3 class="case-title">Налоговый спор: <em style="font-style:italic;color:var(--gold)">дробление</em> бизнеса.</h3>
-          <p class="case-desc">Отменено доначисление НДС и налога на прибыль. Доказана самостоятельность и деловая цель трёх связанных юридических лиц, опровергнута схема «искусственного дробления».</p>
-          <div class="case-result">
-            <span class="label">Отменено доначислений</span>
-            <span class="value">94 000 000 ₽</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="case-item">
-        <div class="case-visual">
-          <div class="cv-fallback">III</div>
-          <img src="images/case-03.jpg" alt="" onerror="this.style.display='none'">
-          <div class="case-caption"><span>Plate III</span><span>Divisio</span></div>
-        </div>
-        <div class="case-body">
-          <div class="case-meta"><span>Семейное</span><span>Медиация</span><span>2024</span></div>
-          <span class="case-num">III.</span>
-          <h3 class="case-title">Раздел <em style="font-style:italic;color:var(--gold)">девелоперского</em> актива и корпоративных долей.</h3>
-          <p class="case-desc">Сопровождение развода состоятельных супругов с разделом активов на 1,2 млрд ₽: коммерческая недвижимость, доли в ООО, зарубежные структуры, счета. Достигнуто внесудебное соглашение в медиации.</p>
-          <div class="case-result">
-            <span class="label">Разделено активов</span>
-            <span class="value">1 200 000 000 ₽</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="case-item reverse">
-        <div class="case-visual">
-          <div class="cv-fallback">IV</div>
-          <img src="images/case-04.jpg" alt="" onerror="this.style.display='none'">
-          <div class="case-caption"><span>Plate IV</span><span>Absolutio</span></div>
-        </div>
-        <div class="case-body">
-          <div class="case-meta"><span>Уголовное</span><span>Мосгорсуд</span><span>2024</span></div>
-          <span class="case-num">IV.</span>
-          <h3 class="case-title"><em style="font-style:italic;color:var(--gold)">Оправдательный</em> приговор по ч. 4 ст. 159 УК РФ.</h3>
-          <p class="case-desc">Первоначальное обвинение — мошенничество в особо крупном размере. Доказано отсутствие умысла и гражданско-правовой характер отношений сторон. Клиент полностью реабилитирован.</p>
-          <div class="case-result">
-            <span class="label">Исход</span>
-            <span class="value">Полная реабилитация</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="case-item">
-        <div class="case-visual">
-          <div class="cv-fallback">V</div>
-          <img src="images/case-05.jpg" alt="" onerror="this.style.display='none'">
-          <div class="case-caption"><span>Plate V</span><span>Signum</span></div>
-        </div>
-        <div class="case-body">
-          <div class="case-meta"><span>IP</span><span>СИП</span><span>2024</span></div>
-          <span class="case-num">V.</span>
-          <h3 class="case-title">Защита бренда в <em style="font-style:italic;color:var(--gold)">Суде</em> по интеллектуальным правам.</h3>
-          <p class="case-desc">Аннулирована регистрация сходного до степени смешения товарного знака конкурента. Взыскана компенсация за неправомерное использование. Бренд клиента защищён на 10 лет вперёд.</p>
-          <div class="case-result">
-            <span class="label">Взыскано</span>
-            <span class="value">4 800 000 ₽</span>
-          </div>
-        </div>
-      </article>
-
-    </div>
-
-    <div style="margin-top:6rem;text-align:center">
-      <a href="#contact" class="btn ghost">Все дела по запросу<span class="btn-arrow"></span></a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ TEAM ============ -->
-<section id="team">
-  <div class="container">
-    <div class="sec-head">
-      <span class="mono sec-label">05 · Socii</span>
-      <h2 class="sec-title">Партнёры <em>и команда</em>.</h2>
-    </div>
-
-    <div class="team-wrap">
-      <div class="team-scroll" id="teamScroll">
-
-        <div class="tm">
-          <div class="tm-img">
-            <div class="tm-initials">АВ</div>
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=700&q=80" alt="Анна Верховская"
-                 onerror="this.style.display='none'">
-          </div>
-          <div class="tm-info">
-            <div>
-              <h3>Анна Верховская</h3>
-              <span class="role">Партнёр-основатель · Арбитраж, M&amp;A</span>
-            </div>
-            <span class="tm-exp">18 лет</span>
-          </div>
-        </div>
-
-        <div class="tm">
-          <div class="tm-img">
-            <div class="tm-initials">МЛ</div>
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=700&q=80" alt="Михаил Лазарев"
-                 onerror="this.style.display='none'">
-          </div>
-          <div class="tm-info">
-            <div>
-              <h3>Михаил Лазарев</h3>
-              <span class="role">Партнёр · Уголовная защита</span>
-            </div>
-            <span class="tm-exp">15 лет</span>
-          </div>
-        </div>
-
-        <div class="tm">
-          <div class="tm-img">
-            <div class="tm-initials">КС</div>
-            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=700&q=80" alt="Ксения Степанова"
-                 onerror="this.style.display='none'">
-          </div>
-          <div class="tm-info">
-            <div>
-              <h3>Ксения Степанова</h3>
-              <span class="role">Партнёр · Налоги, корпоративное</span>
-            </div>
-            <span class="tm-exp">12 лет</span>
-          </div>
-        </div>
-
-        <div class="tm">
-          <div class="tm-img">
-            <div class="tm-initials">ДК</div>
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=80" alt="Дмитрий Корнев"
-                 onerror="this.style.display='none'">
-          </div>
-          <div class="tm-info">
-            <div>
-              <h3>Дмитрий Корнев</h3>
-              <span class="role">Советник · Недвижимость, строительство</span>
-            </div>
-            <span class="tm-exp">14 лет</span>
-          </div>
-        </div>
-
-        <div class="tm">
-          <div class="tm-img">
-            <div class="tm-initials">ЕР</div>
-            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=700&q=80" alt="Елена Рогова"
-                 onerror="this.style.display='none'">
-          </div>
-          <div class="tm-info">
-            <div>
-              <h3>Елена Рогова</h3>
-              <span class="role">Старший юрист · Банкротство</span>
-            </div>
-            <span class="tm-exp">11 лет</span>
-          </div>
-        </div>
-
-        <div class="tm">
-          <div class="tm-img">
-            <div class="tm-initials">АТ</div>
-            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=700&q=80" alt="Артём Трофимов"
-                 onerror="this.style.display='none'">
-          </div>
-          <div class="tm-info">
-            <div>
-              <h3>Артём Трофимов</h3>
-              <span class="role">Старший юрист · IP, IT-право</span>
-            </div>
-            <span class="tm-exp">9 лет</span>
-          </div>
-        </div>
-
-        <div class="tm">
-          <div class="tm-img">
-            <div class="tm-initials">ОС</div>
-            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=700&q=80" alt="Ольга Савина"
-                 onerror="this.style.display='none'">
-          </div>
-          <div class="tm-info">
-            <div>
-              <h3>Ольга Савина</h3>
-              <span class="role">Юрист · Семейное, наследство</span>
-            </div>
-            <span class="tm-exp">8 лет</span>
-          </div>
-        </div>
-
-        <div class="tm">
-          <div class="tm-img">
-            <div class="tm-initials">ПМ</div>
-            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=700&q=80" alt="Павел Миронов"
-                 onerror="this.style.display='none'">
-          </div>
-          <div class="tm-info">
-            <div>
-              <h3>Павел Миронов</h3>
-              <span class="role">Юрист · Трудовое право</span>
-            </div>
-            <span class="tm-exp">7 лет</span>
-          </div>
-        </div>
-
-        <div class="tm">
-          <div class="tm-img">
-            <div class="tm-initials">НВ</div>
-            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=700&q=80" alt="Наталья Вишневская"
-                 onerror="this.style.display='none'">
-          </div>
-          <div class="tm-info">
-            <div>
-              <h3>Наталья Вишневская</h3>
-              <span class="role">Юрист · Налоговые споры</span>
-            </div>
-            <span class="tm-exp">6 лет</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="team-nav">
-      <span class="team-counter"><strong id="teamCur">01</strong> / <span id="teamTotal">10</span></span>
-      <button class="team-arrow" id="teamPrev" aria-label="Предыдущий">←</button>
-      <button class="team-arrow" id="teamNext" aria-label="Следующий">→</button>
     </div>
   </div>
 </section>
 
 <!-- ============ PROCESS ============ -->
-<section class="process">
+<section class="process" id="process">
   <div class="container">
     <div class="sec-head">
-      <span class="mono sec-label">06 · Modus operandi</span>
+      <span class="mono sec-label">03 · Modus operandi</span>
       <h2 class="sec-title">Четыре шага <em>к результату</em>.</h2>
     </div>
 
@@ -1408,22 +674,22 @@ footer a:hover{color:var(--gold)}
       <div class="proc-step">
         <span class="proc-num">I</span>
         <h3>Первая встреча</h3>
-        <p>Бесплатная 45-минутная консультация. Разбираем задачу, формулируем юридическую позицию, очерчиваем риски.</p>
+        <p>Консультация: разбираем задачу, формулируем юридическую позицию, очерчиваем риски.</p>
       </div>
       <div class="proc-step">
         <span class="proc-num">II</span>
         <h3>Стратегия</h3>
-        <p>В течение 3 рабочих дней готовим письменную правовую позицию, план действий, смету и сроки.</p>
+        <p>Готовим план действий, состав документов и сроки — прежде чем приступать к работе.</p>
       </div>
       <div class="proc-step">
         <span class="proc-num">III</span>
         <h3>Исполнение</h3>
-        <p>Ведём процесс: переговоры, подготовка документов, суды, согласования. Еженедельный отчёт для клиента.</p>
+        <p>Готовим документы, ведём переговоры и процесс, держим вас в курсе на каждом шаге.</p>
       </div>
       <div class="proc-step">
         <span class="proc-num">IV</span>
         <h3>Результат</h3>
-        <p>Закрываем дело. Передаём архив, рекомендации на будущее и, если нужно, сопровождаем исполнение решения.</p>
+        <p>Закрываем дело, передаём документы и рекомендации на будущее.</p>
       </div>
     </div>
   </div>
@@ -1432,9 +698,9 @@ footer a:hover{color:var(--gold)}
 <!-- ============ CONTACT ============ -->
 <section class="contact" id="contact">
   <div class="container">
-    <span class="mono c-eyebrow">VII · Contactus</span>
-    <h2 class="c-title">Запишитесь на <em>первую встречу</em>.</h2>
-    <p class="c-lead">Расскажите о задаче. В течение 24 часов с вами свяжется один из партнёров и предложит 45 минут бесплатной консультации — лично, в офисе или онлайн.</p>
+    <span class="mono c-eyebrow">04 · Contactus</span>
+    <h2 class="c-title">Опишите <em>задачу</em>.</h2>
+    <p class="c-lead">Расскажите о ситуации — свяжемся с вами и предложим удобный формат встречи, очно или онлайн.</p>
 
     <form class="c-form" id="contactForm" onsubmit="return submitContact(event)">
       <div class="field">
@@ -1447,21 +713,19 @@ footer a:hover{color:var(--gold)}
       </div>
       <div class="field">
         <label for="f-email">Email</label>
-        <input id="f-email" name="email" type="email" placeholder="you@company.ru">
+        <input id="f-email" name="email" type="email" placeholder="you@mail.ru">
       </div>
       <div class="field">
-        <label for="f-practice">Практика<span class="req">*</span></label>
+        <label for="f-practice">Услуга<span class="req">*</span></label>
         <select id="f-practice" name="practice" required>
-          <option value="" disabled selected>Выберите направление</option>
-          <option>Корпоративное право</option>
-          <option>Арбитраж и споры</option>
-          <option>Налоги</option>
-          <option>Недвижимость и строительство</option>
-          <option>Семейное и наследственное</option>
-          <option>Уголовная защита бизнеса</option>
-          <option>Банкротство</option>
-          <option>Интеллектуальная собственность</option>
-          <option>Трудовое право</option>
+          <option value="" disabled selected>Выберите услугу</option>
+          <option>Юридическая консультация</option>
+          <option>Составление договора</option>
+          <option>Составление претензии</option>
+          <option>Досудебная претензия</option>
+          <option>Иск в суд</option>
+          <option>Регистрация ИП/ООО</option>
+          <option>Консультация по призыву</option>
           <option>Не уверен — помогите определиться</option>
         </select>
       </div>
@@ -1471,10 +735,10 @@ footer a:hover{color:var(--gold)}
       </div>
       <label class="consent">
         <input type="checkbox" required>
-        <span>Согласен на обработку персональных данных и ознакомлен с <a href="#">политикой конфиденциальности</a>. Сообщение защищено адвокатской тайной.</span>
+        <span>Согласен на обработку персональных данных и ознакомлен с <a href="#">политикой конфиденциальности</a>.</span>
       </label>
       <div class="submit-row">
-        <span class="submit-note mono">ОТВЕТ В ТЕЧЕНИЕ 24 ЧАСОВ · БЕЗ АВТООТВЕТОВ</span>
+        <span class="submit-note mono">ОТВЕТИМ В ТЕЧЕНИЕ РАБОЧЕГО ДНЯ</span>
         <button class="btn primary" type="submit">Отправить обращение<span class="btn-arrow"></span></button>
       </div>
     </form>
@@ -1482,29 +746,25 @@ footer a:hover{color:var(--gold)}
     <div class="c-form-ok" id="contactOk">
       <span class="mono">§ Получено</span>
       <h3>Ваше обращение принято.</h3>
-      <p>Партнёр свяжется с вами в течение 24 часов по указанному телефону. Для срочных вопросов — +7 (495) 111-22-33.</p>
+      <p>Свяжемся с вами в течение рабочего дня по указанному телефону.</p>
     </div>
 
     <div class="c-channels">
-      <a href="tel:+74951112233" class="btn ghost">+7 (495) 111-22-33</a>
+      <a href="tel:+70000000000" class="btn ghost">+7 (000) 000-00-00</a>
       <a href="mailto:office@astrea.law" class="btn ghost">office@astrea.law</a>
-      <a href="https://wa.me/74951112233" class="btn ghost">WhatsApp</a>
+      <a href="https://wa.me/70000000000" class="btn ghost">WhatsApp</a>
     </div>
 
     <div class="ornament">§ · § · §</div>
 
     <div class="c-info">
       <div class="c-info-item">
-        <span class="mono">Москва</span>
-        <p>Пресненская наб., 10<br>БЦ «Москва-Сити», 48 эт.</p>
-      </div>
-      <div class="c-info-item">
-        <span class="mono">Санкт-Петербург</span>
-        <p>Большая Морская, 24<br>3 этаж</p>
+        <span class="mono">Адрес</span>
+        <p>Укажите адрес офиса</p>
       </div>
       <div class="c-info-item">
         <span class="mono">Часы работы</span>
-        <p>Пн—Пт · 09:00—20:00<br>Сб · по записи</p>
+        <p>Пн—Пт · 09:00—20:00</p>
       </div>
     </div>
   </div>
@@ -1512,37 +772,28 @@ footer a:hover{color:var(--gold)}
 
 <!-- ============ FOOTER ============ -->
 <footer>
-  <div>© MMXIV — MMXXVI · Astrea Bureau</div>
+  <div>© MMXXVI · Astrea</div>
   <div class="foot-links">
     <a href="#">Конфиденциальность</a>
     <a href="#">Реквизиты</a>
-    <a href="#">EN</a>
   </div>
 </footer>
 
 <div class="cursor-light" id="cursorLight"></div>
 
 <script>
-function closeGate(){
-  const g = document.getElementById('gate');
-  if(g.classList.contains('leaving')) return;
-  g.classList.add('leaving');
-  try{ localStorage.setItem('astrea-entered','1'); }catch(e){}
-  // reveal hero slightly before curtains finish, for a smooth handoff
-  setTimeout(()=>{ document.body.classList.add('entered'); }, 900);
-  setTimeout(()=>{ startHeroAnim(); }, 1100);
-  setTimeout(()=>{
-    g.classList.add('hidden');
-    document.body.style.overflow = '';
-  }, 1900);
-}
-
 function startHeroAnim(){
   const words = document.querySelectorAll('.hero-title .word');
   words.forEach((w,i)=>{
     setTimeout(()=>w.classList.add('in'), 200 + i*120);
   });
 }
+window.addEventListener('load', ()=>{
+  setTimeout(()=>{
+    document.body.classList.add('entered');
+    startHeroAnim();
+  }, 200);
+});
 
 // phone mask — strict RU format
 document.addEventListener('input', (e)=>{
@@ -1560,34 +811,6 @@ document.addEventListener('input', (e)=>{
   }
 });
 
-// team carousel
-(function(){
-  const track = document.getElementById('teamScroll');
-  const prev = document.getElementById('teamPrev');
-  const next = document.getElementById('teamNext');
-  const cur = document.getElementById('teamCur');
-  if(!track || !prev || !next) return;
-
-  const getStep = ()=>{
-    const card = track.querySelector('.tm');
-    if(!card) return 320;
-    const s = getComputedStyle(track);
-    return card.offsetWidth + parseFloat(s.columnGap || s.gap || 32);
-  };
-  const update = ()=>{
-    const step = getStep();
-    const i = Math.round(track.scrollLeft / step) + 1;
-    if(cur) cur.textContent = String(i).padStart(2,'0');
-    prev.disabled = track.scrollLeft < 10;
-    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 10;
-  };
-  prev.addEventListener('click', ()=>track.scrollBy({left:-getStep(),behavior:'smooth'}));
-  next.addEventListener('click', ()=>track.scrollBy({left:getStep(),behavior:'smooth'}));
-  track.addEventListener('scroll', update, {passive:true});
-  window.addEventListener('resize', update);
-  update();
-})();
-
 function submitContact(e){
   e.preventDefault();
   const form = document.getElementById('contactForm');
@@ -1599,17 +822,6 @@ function submitContact(e){
   ok.scrollIntoView({behavior:'smooth',block:'center'});
   return false;
 }
-// skip gate on return visits or via ?skip / #skip
-try{
-  const skip = location.hash === '#skip' || new URLSearchParams(location.search).has('skip');
-  if(skip || localStorage.getItem('astrea-entered')==='1'){
-    document.getElementById('gate').classList.add('hidden');
-    document.body.classList.add('entered');
-    startHeroAnim();
-  } else {
-    document.body.style.overflow = 'hidden';
-  }
-}catch(e){ document.body.classList.add('entered'); startHeroAnim(); }
 
 // cursor spotlight
 const cl = document.getElementById('cursorLight');
@@ -1640,7 +852,7 @@ window.addEventListener('scroll', ()=>{
 }, {passive:true});
 
 // reveal on scroll
-const revealEls = document.querySelectorAll('.pr-card, .case-row, .tm, .proc-step');
+const revealEls = document.querySelectorAll('.pr-card, .proc-step');
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
@@ -1655,7 +867,6 @@ revealEls.forEach(el=>{
   el.style.transition = 'opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1)';
   io.observe(el);
 });
-// safety: reveal everything after 2s if still hidden
 setTimeout(()=>revealEls.forEach(el=>{el.style.opacity='1';el.style.transform='translateY(0)'}), 2000);
 </script>
 
