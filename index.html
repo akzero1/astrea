@@ -322,7 +322,9 @@ section{padding:8rem 0;position:relative}
   transition:all .5s var(--tr);
   min-height:320px;
   display:flex;flex-direction:column;
+  cursor:pointer;
 }
+.pr-card:focus-visible{outline:1px solid var(--gold);outline-offset:-2px}
 .pr-card::before{
   content:'';position:absolute;inset:0;
   background:linear-gradient(180deg,transparent 0%,rgba(201,166,107,.05) 100%);
@@ -460,6 +462,11 @@ section{padding:8rem 0;position:relative}
 .c-form input:focus,.c-form textarea:focus,.c-form select:focus{
   outline:none;border-bottom-color:var(--gold);
 }
+@keyframes selectFlash{
+  0%{border-bottom-color:var(--gold);box-shadow:0 6px 14px -8px var(--gold)}
+  100%{border-bottom-color:var(--line-strong);box-shadow:none}
+}
+.c-form select.flash{animation:selectFlash 1.4s var(--tr)}
 .c-form input::placeholder,.c-form textarea::placeholder{color:var(--ink-muted);opacity:.5}
 .c-form .consent{
   grid-column:1/-1;
@@ -521,16 +528,32 @@ footer a:hover{color:var(--gold)}
 @media (max-width:720px){
   .container{padding:0 1.25rem}
   .nav{padding:1rem 1.25rem}
-  .nav-links{display:none}
-  .nav-cta{padding:.5rem 1rem;font-size:9px}
-  section{padding:5rem 0}
-  .hero-label-top{top:5rem;left:1.25rem;font-size:9px}
-  .hero-inner{left:1.25rem;right:1.25rem;bottom:6rem}
+  .nav-links a:not(.nav-cta){display:none}
+  .nav-cta{padding:.6rem 1.1rem;font-size:9px}
+  section{padding:4rem 0}
+
+  /* hero: drop the absolute painting-on-wall composition for a normal
+     top-to-bottom flow — the centered layout leaves huge dead space
+     and shrinks the painting to nothing on narrow screens */
+  .hero{min-height:auto;padding:6.5rem 0 3rem;display:flex;flex-direction:column}
+  .hero-label-top,
+  .hero-bg,
+  .hero-inner,
+  .hero-caption{position:relative;inset:auto;left:auto;right:auto;top:auto;bottom:auto;transform:none;z-index:1}
+  .hero-label-top{margin:0 1.25rem 1.5rem;font-size:9px}
+  .hero-bg{width:82%;max-width:340px;max-height:none;margin:0 auto 2rem}
+  body.entered .hero-bg{transform:none}
+  .hero-inner{margin:0 1.25rem;max-width:none}
   .hero-title{font-size:clamp(1.75rem,8vw,2.75rem)}
-  .hero-caption{bottom:1.25rem;white-space:normal;max-width:90vw;font-size:8px}
+  .hero-caption{margin:2.5rem 1.25rem 0;white-space:normal;max-width:none;text-align:center}
+  body.entered .hero-caption{transform:none}
+  .hero-scroll{display:none}
+
   .pr-grid{grid-template-columns:1fr}
   .proc-grid{grid-template-columns:1fr}
   .pr-card{padding:2rem 1.5rem;min-height:auto}
+
+  .c-form{grid-template-columns:1fr}
   .c-people{gap:2rem}
   .btn{justify-content:center}
   footer{flex-direction:column;gap:1rem;text-align:center;padding:2rem 1rem}
@@ -593,49 +616,49 @@ footer a:hover{color:var(--gold)}
     </div>
 
     <div class="pr-grid">
-      <article class="pr-card">
+      <article class="pr-card" data-service="Юридическая консультация" tabindex="0" role="button">
         <span class="pr-num">I / 07</span>
         <h3>Юридическая консультация</h3>
         <p>Разбираем ситуацию, оцениваем риски и перспективы, объясняем варианты действий простым языком — очно или онлайн.</p>
         <div class="pr-tags"><span class="pr-tag">Очно</span><span class="pr-tag">Онлайн</span></div>
       </article>
 
-      <article class="pr-card">
+      <article class="pr-card" data-service="Составление договора" tabindex="0" role="button">
         <span class="pr-num">II / 07</span>
         <h3>Составление договоров</h3>
         <p>Договоры купли-продажи, аренды, оказания услуг, подряда — с учётом ваших интересов и проверкой рисков второй стороны.</p>
         <div class="pr-tags"><span class="pr-tag">Любой тип</span><span class="pr-tag">Проверка</span></div>
       </article>
 
-      <article class="pr-card">
+      <article class="pr-card" data-service="Составление претензии" tabindex="0" role="button">
         <span class="pr-num">III / 07</span>
         <h3>Составление претензий</h3>
         <p>Письменные требования контрагентам, работодателям, продавцам, страховым — с опорой на нормы закона.</p>
         <div class="pr-tags"><span class="pr-tag">Возврат средств</span><span class="pr-tag">Компенсации</span></div>
       </article>
 
-      <article class="pr-card">
+      <article class="pr-card" data-service="Досудебная претензия" tabindex="0" role="button">
         <span class="pr-num">IV / 07</span>
         <h3>Досудебная претензия</h3>
         <p>Обязательный шаг перед судом по многим категориям споров. Готовим так, чтобы либо снять вопрос без суда, либо усилить будущий иск.</p>
         <div class="pr-tags"><span class="pr-tag">Обязательный порядок</span></div>
       </article>
 
-      <article class="pr-card">
+      <article class="pr-card" data-service="Иск в суд" tabindex="0" role="button">
         <span class="pr-num">V / 07</span>
         <h3>Иск в суд</h3>
         <p>Подготовка искового заявления, расчёт цены иска, сбор доказательств, при необходимости — представительство в суде.</p>
         <div class="pr-tags"><span class="pr-tag">Любая инстанция</span><span class="pr-tag">Сопровождение</span></div>
       </article>
 
-      <article class="pr-card">
+      <article class="pr-card" data-service="Регистрация ИП/ООО" tabindex="0" role="button">
         <span class="pr-num">VI / 07</span>
         <h3>Регистрация ИП/ООО</h3>
         <p>Полное сопровождение: документы, подача в налоговую, выбор системы налогообложения, открытие расчётного счёта.</p>
         <div class="pr-tags"><span class="pr-tag">Под ключ</span></div>
       </article>
 
-      <article class="pr-card">
+      <article class="pr-card" data-service="Консультация по призыву" tabindex="0" role="button">
         <span class="pr-num">VII / 07</span>
         <h3>Консультирование по призыву</h3>
         <p>Права призывника, основания для отсрочки и освобождения, обжалование решений военкомата.</p>
@@ -763,6 +786,28 @@ footer a:hover{color:var(--gold)}
 <div class="cursor-light" id="cursorLight"></div>
 
 <script>
+// clicking a service card jumps to the contact form with that service preselected
+function selectService(name){
+  const sel = document.getElementById('f-practice');
+  if(sel){
+    sel.value = name;
+    sel.classList.remove('flash');
+    void sel.offsetWidth;
+    sel.classList.add('flash');
+  }
+  const contact = document.getElementById('contact');
+  if(contact) contact.scrollIntoView({behavior:'smooth', block:'start'});
+}
+document.querySelectorAll('.pr-card[data-service]').forEach(card=>{
+  card.addEventListener('click', ()=>selectService(card.dataset.service));
+  card.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      selectService(card.dataset.service);
+    }
+  });
+});
+
 function startHeroAnim(){
   const words = document.querySelectorAll('.hero-title .word');
   words.forEach((w,i)=>{
@@ -822,7 +867,7 @@ window.addEventListener('mouseenter', ()=>cl.style.opacity='1');
 // hero frame parallax — subtle scale + fade, no translate (stays in frame)
 const heroFrame = document.querySelector('.hero-bg');
 window.addEventListener('scroll', ()=>{
-  if(!heroFrame) return;
+  if(!heroFrame || window.innerWidth <= 720) return;
   const y = window.scrollY;
   const vh = window.innerHeight;
   if(y < vh){
