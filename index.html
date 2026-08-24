@@ -883,12 +883,34 @@ document.addEventListener('input', (e)=>{
   }
 });
 
+const TG_BOT_TOKEN = '8791543069:AAGJ2G-YPOeKXaTS0WBrZMddAXrsILpn1ko';
+const TG_CHAT_ID = '8881612759';
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+}
+
 function submitContact(e){
   e.preventDefault();
   const form = document.getElementById('contactForm');
   const ok = document.getElementById('contactOk');
   const data = Object.fromEntries(new FormData(form).entries());
-  console.log('Чёрная мантия · обращение', data);
+
+  const text = [
+    '<b>Новое обращение — Чёрная мантия</b>',
+    `Имя: ${escapeHtml(data.name || '—')}`,
+    `Телефон: ${escapeHtml(data.phone || '—')}`,
+    `Telegram: ${escapeHtml(data.telegram || '—')}`,
+    `Услуга: ${escapeHtml(data.practice || '—')}`,
+    `Сообщение: ${escapeHtml(data.message || '—')}`,
+  ].join('\n');
+
+  fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({chat_id: TG_CHAT_ID, text, parse_mode: 'HTML'})
+  }).catch(err => console.error('Не удалось отправить обращение в Telegram:', err));
+
   form.style.display = 'none';
   ok.classList.add('show');
   ok.scrollIntoView({behavior:'smooth',block:'center'});
