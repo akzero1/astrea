@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ЧЁРНАЯ МАНТИЯ — Юридическое бюро</title>
 <meta name="description" content="Чёрная мантия — юридическая помощь: консультации, договоры, претензии, иски в суд, регистрация ИП/ООО, вопросы призыва.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Чёрная мантия">
+<meta property="og:title" content="Чёрная мантия — Юридическое бюро">
+<meta property="og:description" content="Юридическая помощь: консультации, договоры, претензии, иски в суд, регистрация ИП/ООО, вопросы призыва.">
+<meta property="og:url" content="https://akzero1.github.io/astrea/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Чёрная мантия — Юридическое бюро">
+<meta name="twitter:description" content="Юридическая помощь частным лицам: консультации, договоры, претензии, иски, регистрация ИП/ООО.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230E0D0B'/%3E%3Crect x='3' y='3' width='58' height='58' fill='none' stroke='%238B1220' stroke-width='1'/%3E%3Ctext x='32' y='47' font-family='Georgia,serif' font-size='44' font-style='italic' fill='%238B1220' text-anchor='middle'%3EМ%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,6 +79,9 @@ body::before{
   transition:opacity .6s var(--tr);
   mix-blend-mode:screen;
   filter:blur(20px);
+}
+@media (hover:none){
+  .cursor-light{display:none}
 }
 
 .mono{font-family:var(--f-mono);font-weight:400;letter-spacing:.04em;text-transform:uppercase;font-size:11px}
@@ -518,63 +529,81 @@ footer a:hover{color:var(--gold)}
   .hero-scroll{display:none}
 }
 @media (max-width:720px){
-  .container{padding:0 1.1rem}
-  .nav{padding:.85rem 1.1rem}
-  .logo{font-size:1.05rem}
+  .container{padding:0 1.25rem}
+  .nav{padding:1rem 1.25rem}
+  .logo{font-size:1.1rem}
+  .nav-links{gap:1.25rem}
   .nav-links a:not(.nav-cta){display:none}
-  .nav-cta{padding:.5rem .9rem;font-size:8px}
-  section{padding:2.25rem 0}
-  .sec-head{margin-bottom:1.5rem}
-  .sec-label{margin-bottom:.6rem;font-size:8px}
-  .sec-label::before{width:18px}
-  .sec-title{font-size:clamp(1.35rem,7vw,1.75rem)}
-  .sec-head.with-media{flex-direction:column;align-items:flex-start;gap:1.25rem}
-  .sec-media{flex-basis:auto;width:100%;max-width:220px;aspect-ratio:16/10}
+  section{padding:3.75rem 0}
+  .sec-head{margin-bottom:2.25rem}
+  .sec-label{margin-bottom:.75rem;font-size:9px}
+  .sec-label::before{width:22px}
+  .sec-title{font-size:clamp(1.65rem,8vw,2.1rem)}
+  .sec-head.with-media{flex-direction:column;align-items:center;gap:1.75rem;text-align:center}
+  .sec-head.with-media .sec-label{justify-content:center}
+  .sec-media{flex-basis:auto;width:100%;max-width:260px;aspect-ratio:4/5}
 
   /* hero: image on top (cropped strip), content stacked below —
      the side-by-side split has no room to breathe on narrow screens */
   .hero{min-height:auto;flex-direction:column}
-  .hero-bg{order:-1;min-height:52vh;flex:none}
-  .hero-content{flex:none;padding:2.25rem 1.1rem 2.75rem}
-  .hero-label-top{margin-bottom:.85rem;font-size:8px}
+  .hero-bg{order:-1;min-height:56vh;flex:none}
+  .hero-content{flex:none;padding:2.5rem 1.25rem 3rem}
+  .hero-label-top{margin-bottom:1rem;font-size:9px}
   .hero-label-top::before{width:24px}
   .hero-inner{max-width:none}
-  .hero-title{font-size:clamp(1.4rem,7vw,1.9rem);margin-bottom:.85rem;max-width:none}
-  .hero-sub{font-size:.82rem;margin-bottom:1.15rem}
-  .hero-actions{gap:.6rem;margin-bottom:1.75rem}
-  .hero-caption{font-size:8px;letter-spacing:.18em}
+  .hero-title{font-size:clamp(1.75rem,8.5vw,2.2rem);margin-bottom:1rem;max-width:none}
+  .hero-sub{font-size:.9rem;margin-bottom:1.5rem}
+  .hero-actions{gap:.75rem;margin-bottom:2rem;flex-direction:column;align-items:stretch}
+  .hero-caption{font-size:9px;letter-spacing:.18em}
   .hero-caption::before{width:24px}
   .hero-scroll{display:none}
 
-  .btn{padding:.8rem 1.4rem;font-size:10px;letter-spacing:.12em;justify-content:center}
+  .btn{padding:1rem 1.5rem;font-size:11px;letter-spacing:.12em;justify-content:center}
 
-  .pr-grid{grid-template-columns:repeat(2,1fr)}
-  .pr-card{padding:.85rem .75rem;min-height:auto}
-  .pr-num{margin-bottom:.4rem;font-size:8px}
-  .pr-card h3{font-size:.95rem;line-height:1.15;margin-bottom:.3rem}
-  .pr-card p{font-size:.72rem;line-height:1.35}
-  .pr-tags{margin-top:.5rem;gap:.3rem}
-  .pr-tag{font-size:7px;padding:.12rem .35rem}
+  /* services: single-column stacked list reads far better than a
+     cramped 2-col grid at this width — full-bleed dividers, real padding */
+  .pr-grid{grid-template-columns:1fr;border-top:none;border-left:none}
+  .pr-card{
+    padding:1.75rem 0;
+    border-left:none;border-right:none;border-top:none;
+    border-bottom:1px solid var(--line);
+    min-height:auto;
+  }
+  .pr-card:last-child{border-bottom:none}
+  .pr-num{margin-bottom:.85rem;font-size:10px}
+  .pr-card h3{font-size:1.3rem;line-height:1.2;margin-bottom:.65rem}
+  .pr-card p{font-size:.88rem;line-height:1.55}
+  .pr-tags{margin-top:1.1rem;gap:.4rem}
+  .pr-tag{font-size:8.5px;padding:.3rem .6rem}
 
-  .proc-grid{grid-template-columns:repeat(2,1fr);gap:0 1rem}
-  .proc-step{padding:.85rem .75rem .85rem 0}
-  .proc-step::before{width:20px}
-  .proc-num{margin-bottom:.4rem;font-size:8px}
-  .proc-step h3{font-size:.95rem;margin-bottom:.3rem}
-  .proc-step p{font-size:.72rem;line-height:1.35}
+  /* process: stacked list with a left accent bar instead of the
+     top bar (which only reads correctly across a horizontal row) */
+  .proc-grid{grid-template-columns:1fr;border-top:none;gap:0;margin-top:2rem}
+  .proc-step{
+    padding:1.4rem 0 1.4rem 1.35rem;
+    border-left:2px solid var(--gold);
+    border-bottom:1px solid var(--line);
+  }
+  .proc-step:last-child{border-bottom:none}
+  .proc-step::before{display:none}
+  .proc-num{margin-bottom:.6rem;font-size:10px}
+  .proc-step h3{font-size:1.2rem;margin-bottom:.55rem}
+  .proc-step p{font-size:.88rem;line-height:1.55}
 
-  .c-eyebrow{margin-bottom:1.25rem}
-  .c-title{font-size:clamp(1.9rem,10vw,2.5rem);margin-bottom:1.1rem}
-  .c-lead{font-size:.92rem;margin-bottom:2rem}
-  .c-form{grid-template-columns:1fr;gap:1.1rem}
-  .c-form label{font-size:9px}
-  .c-form input,.c-form textarea,.c-form select{font-size:.95rem;padding:.6rem 0}
-  .c-form textarea{min-height:90px}
-  .c-form .submit-row{margin-top:.25rem}
+  .c-eyebrow{margin-bottom:1.5rem}
+  .c-title{font-size:clamp(2.1rem,11vw,2.75rem);margin-bottom:1.25rem}
+  .c-lead{font-size:.95rem;margin-bottom:2.5rem}
+  .c-form{grid-template-columns:1fr;gap:1.35rem}
+  .c-form label{font-size:9.5px}
+  .c-form input,.c-form textarea,.c-form select{font-size:1rem;padding:.7rem 0}
+  .c-form textarea{min-height:100px}
+  .c-form .submit-row{margin-top:.5rem;flex-direction:column;align-items:stretch;gap:1.25rem}
+  .c-form .submit-note{max-width:none;text-align:center}
   .c-form .btn[type=submit]{width:100%;min-width:0}
-  .c-people{gap:1.25rem;padding-top:2rem}
-  .c-person-links{gap:.5rem}
-  footer{flex-direction:column;gap:1rem;text-align:center;padding:1.5rem 1rem 1.25rem}
+  .c-people{gap:1.25rem;padding-top:2.25rem}
+  .c-person-links{gap:.6rem;flex-direction:column;align-items:stretch}
+  .c-person-links .btn{width:100%}
+  footer{flex-direction:column;gap:1rem;text-align:center;padding:2rem 1.25rem}
   .foot-links{flex-wrap:wrap;justify-content:center;gap:1rem}
 }
 </style>
